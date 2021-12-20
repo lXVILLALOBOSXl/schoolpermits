@@ -1,0 +1,171 @@
+@page
+@model PermisosWeb.Pages.PermisosModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<main class="contenedor">
+    <h3 class="centrar-texto">Solicitud de permiso</h3>
+    <form class="formulario" method="POST">
+        <div class="campo">
+            <label class="campo__label" for="nombre">Nombre del Trabajador(a):</label>
+            <label for="nombre">@Model.nombreCompleto</label>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="nomina">Numero de Nómina:</label>
+            <label for="nombre">@Model.Nomina</label>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="area">Área de Inscripción:</label>
+            <label for="nombre">@Model.Area</label>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="fechaDeElaboracion">Fecha de Elaboración:</label>
+            <label for="nombre">@Model.Fecha</label>
+        </div>
+
+        <div class="campo">
+            <label asp-for="Permiso.TipoPermiso" class="campo__label">Tipo de Justificación:</label>
+            <select asp-for="Permiso.TipoPermiso" required>
+                <option value="" disabled="" selected=""> Elige una opción </option>
+                <option value="1">Permiso Económico</option>
+                <option value="2">Permiso Cumpleaños</option>
+                <option value="3">Permiso 2 Horas</option>
+            </select>
+            <span asp-validation-for="Permiso.TipoPermiso"></span>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="fechaJustificacion">Fecha(s) a justificar:</label>
+            <div class="fecha">
+                <div>
+                    <label>Inicio:</label>
+                    <input asp-for="Permiso.FechaJustificacionInicio" asp-format="{0:DD/MM/YYYY}" class="campo__field"
+                        type="date" min="@Model.fechaHtml" max="2050-12-31" required>
+                </div>
+                <div>
+                    <label>Fin:</label>
+                    <input asp-for="Permiso.FechaJustificacionFin" asp-format="{0:DD/MM/YYYY}" class="campo__field"
+                        type="date" min="@Model.fechaHtml" max="2050-12-31" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="horasJustificacion">Horas a justificar:</label>
+            <div class="fecha">
+                <div>
+                    <label asp-for="Permiso.HoraInicio">Hora:</label>
+                    <select asp-for="Permiso.HoraInicio">
+                        <option value="" disabled="" selected=""> Elige una opción </option>
+                        <option value="7:00">7:00</option>
+                        <option value="13:00">13:00</option>
+                    </select>
+                    <span asp-validation-for="Permiso.HoraInicio"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="alinear-derecha">
+            <input type="submit" asp-page-handler="EnviarPermiso" value="enviar" class="boton boton--primario">
+        </div>
+    </form>
+    <form  method="POST">
+
+        <table class="campo">
+
+            <tr>
+                <th>Folio</th>
+                <th>Tipo</th>
+                <th>Fecha de Elaboración</th>
+                <th>Fecha de Justificación 1</th>
+                <th>Fecha de Justificación 2</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Estado</th>
+                @if (Model.tipoEmpleado == 4)
+                {
+                    <th>Cancelar permiso</th>
+                }
+                else
+                {
+                    <th>Nomina</th>
+                    <th>Aceptar Permiso</th>
+                    <th>Rechazar Permiso</th>
+                }
+            </tr>
+
+            @foreach (var item in Model.listPermisos)
+            {
+                <tr>
+                    <td>@item.Folio</td>
+                    <td>@item.Tipo</td>
+                    <td>@item.FechaElab</td>
+                    <td>@item.FechaInicio</td>
+                    <td>@item.FechaFin</td>
+                    <td>@item.HoraInicio</td>
+                    <td>@item.HoraFin</td>
+                    <td>@item.Estado</td>
+                    @if (Model.tipoEmpleado == 4)
+                    {
+                        if(item.Estado == "Aceptado")
+                        {
+                          <td> </td>
+                        }
+                        else
+                        {
+                            <td> <input type="submit" asp-page-handler="CancelarPermisoEmpleado" asp-route-folio=@item.Folio
+                            value="x" class="boton boton--primario"></td>
+                        }
+                
+
+                    }
+                    else
+                    {
+                        <td>@item.Nomina</td>
+                        @if ((item.Estado == "Solicitado") || (item.Estado == "Aprobado (Supervisor)"))
+                        {
+                            <td> <input type="submit" asp-page-handler="AceptarPermiso" asp-route-folio=@item.Folio value="✓"
+                        class="boton boton--primario"></td>
+                            <td> <input type="submit" asp-page-handler="CancelarPermiso" asp-route-folio=@item.Folio value="x"
+                        class="boton boton--primario"></td>
+                        }
+                        else
+                        {
+                              if(item.Estado == "Aceptado")
+                            {
+                                <td> </td>
+                                <td> </td>
+                            }
+                            else
+                            {
+
+                                <td> </td>
+                                <td> <input type="submit" asp-page-handler="CancelarPermiso" asp-route-folio=@item.Folio value="x"
+                                class="boton boton--primario"></td>
+                            }
+                        }
+                    }
+                </tr>
+            }
+
+
+        </table>
+        <p></p>
+        <div class="alinear-derecha">
+            <input type="submit" asp-page-handler="Salir" value="Salir" class="boton boton--primario">
+        </div>
+    </form>
+@{
+    var message = TempData["PermisoMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
+
+
+</main>

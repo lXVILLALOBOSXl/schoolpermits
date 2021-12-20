@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permisos - Frida</title>
+    <link rel="preload" href="css/normalize.css" as="style">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" 
+    crossorigin="crossorigin" as="font">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="contenedor">
+        <h3 class="centrar-texto">Solicitud de permiso</h3>
+
+        <div class="permiso-bg"></div>
+        <form class="formulario">
+            <div class="campo">
+                <label class="campo__label" for="nombre">Nombre del Trabajador(a):</label>
+                <label for="nombre">Brambila Santamaria Angel Emmanuel</label>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="nomina">Numero de Nómina:</label>
+                <label for="nombre">3344</label>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="area">Área de Inscripción:</label>
+                <label for="nombre">Informática y Computación</label>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="fechaDeElaboracion">Fecha de Elaboración:</label>
+                <label for="nombre">05/18/2021</label>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="justificacion">Tipo de Justificación:</label>
+                    <select name="justificacion">
+                        <option selected value="0"> Elige una opción </option>
+                        <option value="1">Permiso 2 Horas</option>
+                        <option value="2">Permiso Económico</option> 
+                        <option value="3">Permiso Cumpleaños</option> 
+                    </select>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="fechaJustificacion">Fecha(s) a justificar:</label>
+                <div class="fecha">
+                    <div>
+                        <label>Inicio:</label>
+                        <input lass="campo__field" type="date" id="start" name="trip-start" value="2020-02-10" min="2020-02-10" max="2050-12-31">
+                    </div>
+                    <div>
+                        <label>Fin:</label>
+                        <input lass="campo__field" type="date" id="start" name="trip-start" value="2020-02-10" min="2020-02-10" max="2050-12-31">
+                    </div>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label class="campo__label" for="horasJustificacion">Horas a justificar:</label>
+                <div class="fecha">
+                    <div>
+                        <label>Inicio:</label>
+                        <select name="hora de inicio">
+                            <option selected value="0"> Elige una opción </option>
+                            <option value="1">7:00</option>
+                            <option value="2">13:00</option> 
+                        </select>
+                    </div>
+                    <div>
+                        <label>Fin:</label>
+                        <label>15:00</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alinear-derecha">
+                <input type="submit" value="Enviar" class="boton boton--primario">
+            </div>
+
+
+            <table class="campo">
+
+                <tr>
+                <th>Folio</th>
+                <th>Tipo</th>
+                <th>Fecha de Elaboración</th>
+                <th>Fecha de Justificación 1</th>
+                <th>Fecha de Justificación 2</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Estado</th>
+                <th></th>
+                <th></th>
+                </tr>
+            
+                <tr>
+                <td>0001</td>
+                <td>2 Horas</td>
+                <td>10/02/2020</td>
+                <td>10/02/2020</td>
+                <td>10/02/2020</td>
+                <td>13:00</td>
+                <td>15:00</td>
+                <td>En Espera</td>
+                <td> <input type="submit" value="✓" class="boton boton--primario"></td>
+                <td> <input type="submit" value="x" class="boton boton--primario"></td>
+                </tr>
+            
+            </table>
+            <p></p>
+            <div class="alinear-derecha">
+                <input type="submit" value="Salir" class="boton boton--primario">
+            </div>
+        </form>
+    </main>
+    <script src="js/modernizr.js"></script>
+</body>

@@ -1,0 +1,23 @@
+@page
+@model PermisosWeb.Pages.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="login">
+  <div class="login-triangle"></div>
+  <h2 class="login-header">Permiso</h2>
+  <form class="login-container" method="POST">
+    <p><input type="text" asp-for="Login.Usuario" placeholder="Numero de nómina"></p>
+    <p><input type="password" asp-for="Login.Password" placeholder="Contraseña"></p>
+    <p><input type="submit" value="Iniciar sesión" class="boton" id="modalButton"></p>
+  </form>
+</div>
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
