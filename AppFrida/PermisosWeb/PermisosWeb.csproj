@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../PemisosContextLib/PemisosContextLib.csproj" />
+    <ProjectReference Include="..\PermisosContextLib\PermisosContextLib.csproj" />
   </ItemGroup>
-</Project>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+  </ItemGroup>
+</Project> 
